@@ -13,4 +13,4 @@ def testSingleaudio(testpath) :
         tmp = Models.retrieveModels('GMMModels/' + model)
         print tmp.score(mfcc_features)
         
-testSingleaudio('1.wav')
+testSingleaudio('cat1.wav')
