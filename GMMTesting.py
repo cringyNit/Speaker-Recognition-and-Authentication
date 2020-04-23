@@ -1,16 +1,43 @@
- import numpy as np
+import numpy as np
 from scipy.io.wavfile import read as rd
 from sklearn.mixture import GaussianMixture as GMM
 from featureextraction import extract_features
 import os
 import Models
-
-def testSingleaudio(testpath) :
-    samplerate , audiofile = rd(testpath)
-    mfcc_features = extract_features(audiofile , samplerate)
+models=[]
+models_name=[]
+def testDataSet(datasetpath,succes_rate) :
+    # samplerate , audiofile = rd(testpath)
+    # mfcc_features = extract_features(audiofile , samplerate)
     for model in os.listdir('GMMModels/') :
-        print model
+        # print model
+        models_name.append(model)
         tmp = Models.retrieveModels('GMMModels/' + model)
-        print tmp.score(mfcc_features)
-        
-testSingleaudio('cat1.wav')
+        models.append(tmp)
+        # print tmp.score(mfcc_features)
+    total_files = 0
+    for folder in os.listdir(datasetpath) :
+    	for audio in os.listdir(datasetpath + folder) :
+    		total_files += 1
+    		samplerate , audiofile = rd(datasetpath + folder + '/'+audio)
+    		mfcc_features = extract_features(audiofile , samplerate)
+    		max_score=-999999
+    		max_model=models[0]
+    		i=0
+    		for model in models :
+    			score = model.score(mfcc_features)
+    			if score > max_score :
+    				max_score = score
+    				max_model = models_name[i]
+    			i = i + 1
+    		
+    		print audio
+    		print max_model
+    		print max_score
+    		print "---------------------------------"
+
+    		if max_model[:len(max_model)-4]== folder:
+    			succes_rate+=1
+    succes_rate = (succes_rate*1.00) / total_files
+    print (str((succes_rate)*100)+ "%")
+testDataSet('TestingData/',0)
