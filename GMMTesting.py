@@ -4,17 +4,30 @@ from sklearn.mixture import GaussianMixture as GMM
 from featureextraction import extract_features
 import os
 import Models
+
 models=[]
 models_name=[]
+
+def GMMModels(audiopath , modeldest) :
+    for folder in os.listdir(audiopath) :
+        mfcc_features = np.asarray(())
+        for audio in os.listdir(audiopath + folder) :
+            samplerate , audiofile = rd(audiopath + folder + '/' + audio)
+            tmp   = extract_features(audiofile,samplerate)
+            if mfcc_features.size == 0 :
+                mfcc_features = tmp
+            else :
+                mfcc_features = np.vstack((mfcc_features , tmp))
+        
+        gmm = GMM(n_components = 16, max_iter = 200, covariance_type='diag',n_init = 3)
+        gmm.fit(mfcc_features)
+        Models.saveModels(modeldest , gmm , folder)
+
 def testDataSet(datasetpath,succes_rate) :
-    # samplerate , audiofile = rd(testpath)
-    # mfcc_features = extract_features(audiofile , samplerate)
     for model in os.listdir('GMMModels/') :
-        # print model
         models_name.append(model)
         tmp = Models.retrieveModels('GMMModels/' + model)
         models.append(tmp)
-        # print tmp.score(mfcc_features)
     total_files = 0
     for folder in os.listdir(datasetpath) :
     	for audio in os.listdir(datasetpath + folder) :
@@ -40,4 +53,6 @@ def testDataSet(datasetpath,succes_rate) :
     			succes_rate+=1
     succes_rate = (succes_rate*1.00) / total_files
     print (str((succes_rate)*100)+ "%")
+
+
 testDataSet('TestingData/',0)
