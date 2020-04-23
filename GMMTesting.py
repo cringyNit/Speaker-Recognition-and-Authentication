@@ -1,4 +1,4 @@
-import numpy as np
+ import numpy as np
 from scipy.io.wavfile import read as rd
 from sklearn.mixture import GaussianMixture as GMM
 from featureextraction import extract_features
@@ -13,4 +13,4 @@ def testSingleaudio(testpath) :
         tmp = Models.retrieveModels('GMMModels/' + model)
         print tmp.score(mfcc_features)
         
-testSingleaudio('bps0015.wav')
+testSingleaudio('cat1.wav')
