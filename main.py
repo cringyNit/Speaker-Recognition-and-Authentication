@@ -28,6 +28,7 @@ if __name__ == "__main__":
         record("temp" , 1 , "")
         print "Hello " + GMMTesting.testSingleaudio("temp1.wav")
         gt("rm temp1.wav")
+        #authentication to be added
         
     elif (a == 2) :
         print("Enter your Name : ")
@@ -43,6 +44,15 @@ if __name__ == "__main__":
         for i in range(5) :
             fname=name+str(i+1)+".wav"
             gt("mv %s %s" %(fname , path))        
-        GMMTraining.GMMModels('TrainingData/' , 'GMMModels')
+        # GMMTraining.GMMModels('TrainingData/' , 'GMMModels')
+        GMMTraining.singleModelTraining(path,'GMMModels')
+        print "press 1 to give passcode"
+        passpath = "PasswordData/"+name
+        gt("mkdir %s" %(passpath))
+        
+        record(name,1,passpath)
+        gt("mv %s %s" %(name+"1.wav" , passpath))  
+
+
 
 

@@ -22,3 +22,15 @@ def GMMModels(audiopath , modeldest) :
         
 
 #GMMModels('TrainingData/' , 'GMMModels')
+def singleModelTraining(audiopath,modeldest) :
+	mfcc_features = np.asarray(())
+	for folder in os.listdir(audiopath) :
+		samplerate , audiofile = rd(audiopath + '/'+folder )
+		tmp   = extract_features(audiofile,samplerate)
+		if mfcc_features.size == 0 :
+			mfcc_features = tmp
+		else :
+			mfcc_features = np.vstack((mfcc_features , tmp))
+	gmm = GMM(n_components = 16, max_iter = 200, covariance_type='diag',n_init = 3)
+	gmm.fit(mfcc_features)
+	Models.saveModels(modeldest , gmm , audiopath[12:])
