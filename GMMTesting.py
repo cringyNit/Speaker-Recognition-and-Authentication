@@ -8,20 +8,20 @@ import Models
 models=[]
 models_name=[]
 
-def GMMModels(audiopath , modeldest) :
-    for folder in os.listdir(audiopath) :
-        mfcc_features = np.asarray(())
-        for audio in os.listdir(audiopath + folder) :
-            samplerate , audiofile = rd(audiopath + folder + '/' + audio)
-            tmp   = extract_features(audiofile,samplerate)
-            if mfcc_features.size == 0 :
-                mfcc_features = tmp
-            else :
-                mfcc_features = np.vstack((mfcc_features , tmp))
-        
-        gmm = GMM(n_components = 16, max_iter = 200, covariance_type='diag',n_init = 3)
-        gmm.fit(mfcc_features)
-        Models.saveModels(modeldest , gmm , folder)
+def testSingleaudio(testpath) :
+    samplerate , audiofile = rd(testpath)
+    mfcc_features = extract_features(audiofile , samplerate)
+    maxscore = -999999
+    speaker = ""
+    for model in os.listdir('GMMModels/') :
+        print model
+        tmp = Models.retrieveModels('GMMModels/' + model)
+        score = tmp.score(mfcc_features)
+        if score > maxscore :
+            maxscore = score
+            speaker = model.split(".gmm")[0]
+        print tmp.score(mfcc_features)
+    return speaker
 
 def testDataSet(datasetpath,succes_rate) :
     for model in os.listdir('GMMModels/') :
@@ -55,4 +55,4 @@ def testDataSet(datasetpath,succes_rate) :
     print (str((succes_rate)*100)+ "%")
 
 
-testDataSet('TestingData/',0)
+#testDataSet('TestingData/',0)

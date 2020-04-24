@@ -21,4 +21,4 @@ def GMMModels(audiopath , modeldest) :
         Models.saveModels(modeldest , gmm , folder)
         
 
-GMMModels('TrainingData/' , 'GMMModels')
+#GMMModels('TrainingData/' , 'GMMModels')
