@@ -7,8 +7,10 @@ import GMMTraining
 import sounddevice
 from scipy.io.wavfile import write
 from commands import getoutput as gt
+import recognition
+import preprocessing
 
-
+threshold =  0.6
 def record(Name, Range, Path) :
 	sr =44100
 	second = 6
@@ -21,15 +23,23 @@ def record(Name, Range, Path) :
 
 if __name__ == "__main__":
     
-    print("Select Option:\n1. Sign In\t 2.Sign Up")
+    print("Select Option:\n1. Sign In\t 2.Sign Up\t 3. Change Password")
     a=int(input())
     
     if(a == 1) :
         print "press 1 to give passcode"
         input()
         record("temp" , 1 , "")
+        name = GMMTesting.testSingleaudio("temp1.wav")
+        preprocessing.start("temp1.wav")
 
-        print "Hello " + GMMTesting.testSingleaudio("temp1.wav")
+
+        corr , offset  = recognition.start('temp1.wav'  , "PasswordData/"+name+"/"+name+"1.wav")
+        if corr > threshold :
+            print "Hello " + name
+        else :
+            print name
+            print "Not Authenticated. Try Again!"
         gt("rm temp1.wav")
         #authentication to be added
         
@@ -55,9 +65,18 @@ if __name__ == "__main__":
         passpath = "PasswordData/"+name
         gt("mkdir %s" %(passpath))
         
+        #saving passcord after preprocessing
         record(name,1,passpath)
+        preprocessing.start(name+"1.wav")
         gt("mv %s %s" %(name+"1.wav" , passpath))  
 
+    elif a==3:
+        print("Enter your Name : ")
+        name = raw_input()
+        passpath = "PasswordData/"+name
 
+        record(name,1,passpath)
+        preprocessing.start(name+"1.wav")
+        gt("mv %s %s" %(name+"1.wav" , passpath))  
 
 

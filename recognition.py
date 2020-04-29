@@ -82,7 +82,7 @@ def results(crossarray , span , step) :
     if corr == 1 :
         print 'Successfully authenticated with correlation %.4f' %(corr) 
         return corr , delayarray[ind]
-    if corr_mean >= threshold :
+    if corr >= threshold :
         print 'Successfully authenticated with correlation %.4f' %(corr) 
         return corr_mean , delayarray[ind]
     print 'Wrong Audio'
@@ -95,5 +95,6 @@ def start(rec , save , step = 1) :
     crossarray =  similarity(recprints , saveprints , span , step)
     print np.var(crossarray)
     return results(crossarray , span , step)
+
+# start('temp1.wav','sfs1.wav')
     
-corr , offset  = start('out.wav'  , 'Out.wav') 

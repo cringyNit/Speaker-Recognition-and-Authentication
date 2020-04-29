@@ -51,9 +51,8 @@ def start(audiopath) :
     plt.figure()
     plt.plot(audio)
     plt.show()
-    wvrd.write('out.wav', samplerate, audio)    
+    wvrd.write(audiopath, samplerate, audio)    
     
-start('sfs1.wav')
 
 
 
