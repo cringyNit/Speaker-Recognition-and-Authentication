@@ -97,4 +97,3 @@ def start(rec , save , step = 1) :
     return results(crossarray , span , step)
 
 # start('temp1.wav','sfs1.wav')
-    
