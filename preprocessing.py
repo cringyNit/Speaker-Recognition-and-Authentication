@@ -11,8 +11,7 @@ def removeSilence(audio) :
     adaptive_th = 0
     n = 0
     counter = 0
-    audio_out = np.array([] , dtype = np.float32)
-    audio_out1 = np.array([] , dtype = np.float32)
+    audio_out = np.array([] , dtype = np.int16)
     
     while len(audio) >= window_size :
         current_frame = audio[:window_size] ** 2
@@ -29,27 +28,33 @@ def removeSilence(audio) :
             counter = 0
         
         if counter <= 20 :
-            audio_out = np.append(audio_out , current_frame)
+            audio_out = np.append(audio_out , audio[:window_size])
         
         n = n + 1
         
     for i in range(len(audio_out)) :
-        if audio_out[i] > 1e-4 :
+        if audio_out[i] ** 2 > 1e-4 :
             audio_out = audio_out[i:]
             return audio_out
+    
+   
     
 
 def start(audiopath) :
     samplerate , audio = wvrd.read(audiopath)
     if audio.ndim == 2 :
         audio = audio[: , 1]
-    return audio
-
+    plt.figure()
+    plt.plot(audio)
+    plt.show()
+    audio = removeSilence(audio)
+    plt.figure()
+    plt.plot(audio)
+    plt.show()
+    wvrd.write('out.wav', samplerate, audio)    
     
-audio = start('deepak1.wav')
-plt.plot(audio**2)
+start('sfs1.wav')
 
-audio = removeSilence(audio)
-plt.plot(audio)
-plt.show()
-print audio
+
+
+
