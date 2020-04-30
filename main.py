@@ -34,12 +34,13 @@ if __name__ == "__main__":
         preprocessing.start("temp1.wav")
 
 
-        corr , offset  = recognition.start('temp1.wav'  , "PasswordData/"+name+"/"+name+"1.wav")
-        if corr > threshold :
-            print "Hello " + name
-        else :
-            print name
-            print "Not Authenticated. Try Again!"
+        corr , offset  = recognition.start1('temp1.wav'  , "PasswordData/"+name+"/"+name+"1.wav")
+        #corr , offset  = recognition.start('temp1.wav'  , "PasswordData/"+name+"/"+name+"1.wav")
+        # if corr > threshold :
+        #     print "Hello " + name
+        # else :
+        #     print name
+        #     print "Not Authenticated. Try Again!"
         gt("rm temp1.wav")
         #authentication to be added
         
