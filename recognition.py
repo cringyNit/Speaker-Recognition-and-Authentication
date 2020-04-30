@@ -114,4 +114,4 @@ def start1(rec1 , rec2) :
     return results(crossarray, span, 1)
 
 # start('temp1.wav','sfs1.wav')
-start1('deepak1.wav' , 'sfs1.wav')
+# start1('deepak1.wav' , 'sfs1.wav')

@@ -15,9 +15,9 @@ def compare(audiopath1, audiopath2 ):
 	frame=1000
 	minlen=min(len(audio1),len(audio2))
 	i=0
-	while (i<minlen-1000) :
-		arr1=audio1[i: i+ frame]
-		arr2=audio2[i: i+frame ]
+	while (i<minlen) :
+		arr1=audio1[i: minlen]
+		arr2=audio2[i: minlen]
 		i+=frame
 
 		f1=np.fft.fft(arr1)
@@ -28,4 +28,4 @@ def compare(audiopath1, audiopath2 ):
 		if(corr>0):
 			print corr
 
-compare('sfs1.wav','sfs1.wav')
+compare('deepak1.wav','deepak3.wav')

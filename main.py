@@ -33,12 +33,11 @@ if __name__ == "__main__":
         preprocessing.start("temp1.wav")
 
 
-<<<<<<< HEAD
+
         corr , offset  = recognition.start1('temp1.wav'  , "PasswordData/"+name+"/"+name+"1.wav")
         #corr , offset  = recognition.start('temp1.wav'  , "PasswordData/"+name+"/"+name+"1.wav")
-=======
+
         corr , offset  = recognition.start('temp1.wav'  , "PasswordData/"+name+"/"+name+"1.wav")
->>>>>>> 386feb7ec94f8308218e304794a068cc1c18e5f4
         # if corr > threshold :
         #     print "Hello " + name
         # else :
@@ -78,8 +77,8 @@ if __name__ == "__main__":
         print("Enter your Name : ")
         name = raw_input()
         passpath = "PasswordData/"+name
-
-        record(name,1,passpath,5)
+        print "give pass duration:"
+        record(name,1,passpath,int(input()))
         preprocessing.start(name+"1.wav")
         gt("mv %s %s" %(name+"1.wav" , passpath))  
 
