@@ -11,9 +11,9 @@ import recognition
 import preprocessing
 
 threshold =  0.6
-def record(Name, Range, Path) :
+def record(Name, Range, Path,second) :
 	sr =44100
-	second = 6
+	
 	for i in range(Range) : 
 		record_voice=sounddevice.rec(int(second * sr),samplerate=sr,channels=2)
 		sounddevice.wait()
@@ -25,21 +25,20 @@ if __name__ == "__main__":
     
     print("Select Option:\n1. Sign In\t 2.Sign Up\t 3. Change Password")
     a=int(input())
-    
     if(a == 1) :
         print "press 1 to give passcode"
         input()
-        record("temp" , 1 , "")
+        record("temp" , 1 , "",8)
         name = GMMTesting.testSingleaudio("temp1.wav")
         preprocessing.start("temp1.wav")
 
 
         corr , offset  = recognition.start('temp1.wav'  , "PasswordData/"+name+"/"+name+"1.wav")
-        if corr > threshold :
-            print "Hello " + name
-        else :
-            print name
-            print "Not Authenticated. Try Again!"
+        # if corr > threshold :
+        #     print "Hello " + name
+        # else :
+        #     print name
+        #     print "Not Authenticated. Try Again!"
         gt("rm temp1.wav")
         #authentication to be added
         
@@ -53,7 +52,7 @@ if __name__ == "__main__":
         print("We will take 5 sample. Press 1 to start recording")
         input()
         
-        record(name , 5 , path)
+        record(name , 5 , path,6)
         
         for i in range(5) :
             fname=name+str(i+1)+".wav"
@@ -66,7 +65,7 @@ if __name__ == "__main__":
         gt("mkdir %s" %(passpath))
         
         #saving passcord after preprocessing
-        record(name,1,passpath)
+        record(name,1,passpath,8)
         preprocessing.start(name+"1.wav")
         gt("mv %s %s" %(name+"1.wav" , passpath))  
 
@@ -75,7 +74,7 @@ if __name__ == "__main__":
         name = raw_input()
         passpath = "PasswordData/"+name
 
-        record(name,1,passpath)
+        record(name,1,passpath,5)
         preprocessing.start(name+"1.wav")
         gt("mv %s %s" %(name+"1.wav" , passpath))  
 
