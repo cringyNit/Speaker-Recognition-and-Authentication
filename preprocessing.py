@@ -33,7 +33,7 @@ def removeSilence(audio) :
         n = n + 1
         
     for i in range(len(audio_out)) :
-        if audio_out[i] ** 2 > 1e-4 :
+        if audio_out[i] ** 2 > 1e-3 :
             audio_out = audio_out[i:]
             return audio_out
     
