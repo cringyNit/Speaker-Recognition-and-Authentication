@@ -5,7 +5,7 @@ import scipy.io.wavfile as wvrd
 #from statistics import variance
 
 fng = 'FINGERPRINT='
-threshold = 0.6
+threshold = 0.63
 
 def covariance(f1 , f2 , l) :
     m1 = np.mean(f1)
@@ -88,8 +88,8 @@ def results(crossarray , span , step) :
     if corr >= threshold :
         print 'Successfully authenticated with correlation %.4f %.4f' %(corr , corr_mean) 
         return corr_mean , delayarray[ind]
-    print 'Wrong Audio'
-    print corr
+    print 'Not Authenticated'
+#    print corr
     return corr , delayarray[ind]
 
 def start(rec , save , step = 1) : 
@@ -97,7 +97,7 @@ def start(rec , save , step = 1) :
     saveprints = chromaFingerprint(save)
     span = min(len(recprints) , len(saveprints)) - 1
     crossarray =  similarity(recprints , saveprints , span , step)
-    print np.var(crossarray)
+#    print np.var(crossarray)
     return results(crossarray , span , step)
 
 def start1(rec1 , rec2) :
@@ -113,5 +113,5 @@ def start1(rec1 , rec2) :
     crossarray = similarity(f1 , f2 , span , 10)
     return results(crossarray, span, 1)
 
-start('Utkarsh5.wav','PasswordData/Utkarsh/Utkarsh3.wav')
+# start('Utkarsh5.wav','PasswordData/Utkarsh/Utkarsh3.wav')
 #start1('Utkarsh4.wav','PasswordData/Utkarsh/Utkarsh3.wav')

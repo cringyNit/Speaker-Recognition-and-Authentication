@@ -11,7 +11,7 @@ import recognition
 import preprocessing
 import time
 
-threshold =  0.6
+threshold =  0.63
 def record(Name, Range, Path,second) :
     sr =44100
     if Range == 10 :
@@ -35,7 +35,7 @@ if __name__ == "__main__":
     if(a == 1) :
         print "press 1 to give passcode"
         input()
-        record("temp" , 1 , "",5)
+        record("temp" , 1 , "",8)
         name = GMMTesting.testSingleaudio("temp1.wav")
         preprocessing.start("temp1.wav")
         
@@ -47,12 +47,15 @@ if __name__ == "__main__":
         corr , offset  = recognition.start('temp1.wav'  , "PasswordData/"+name+"/"+name+"1.wav")
         corr , offset  = recognition.start('temp1.wav'  , "PasswordData/"+name+"/"+name+"2.wav")
         corr , offset  = recognition.start('temp1.wav'  , "PasswordData/"+name+"/"+name+"3.wav")
+        corr , offset  = recognition.start('temp1.wav'  , "PasswordData/"+name+"/"+name+"4.wav")
+        corr , offset  = recognition.start('temp1.wav'  , "PasswordData/"+name+"/"+name+"5.wav")
+        
         # if corr > threshold :
         #     print "Hello " + name
         # else :
         #     print name
         #     print "Not Authenticated. Try Again!"
-        gt("rm temp1.wav")
+#        gt("rm temp1.wav")
         #authentication to be added
         
         
@@ -108,3 +111,20 @@ if __name__ == "__main__":
         record(name + '3.wav',10,passpath,dur)
         preprocessing.start(name+"3.wav")
         gt("mv %s %s" %(name+"3.wav" , passpath))
+        print "Done"
+
+        time.sleep(1)
+        print "Go"
+        record(name + '4.wav',10,passpath,dur)
+        preprocessing.start(name+"4.wav")
+        gt("mv %s %s" %(name+"4.wav" , passpath))
+        
+        print "Done"
+        time.sleep(1)
+        print "Go"
+        record(name + '5.wav',10,passpath,dur)
+        preprocessing.start(name+"5.wav")
+        gt("mv %s %s" %(name+"5.wav" , passpath))
+
+
+
