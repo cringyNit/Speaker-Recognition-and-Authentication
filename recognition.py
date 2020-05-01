@@ -24,16 +24,16 @@ def correlation(f1, f2):
         f2 = f2[:len(f1)]
     
     
-    t = np.corrcoef(f1 ,f2)
+    # t = np.corrcoef(f1 ,f2)
     
-    return t[0][1]
+    # return t[0][1]
     
-    # covariance = 0
-    # for i in range(len(f1)):
-    #     covariance += 32 - bin(f1[i] ^ f2[i]).count("1")
-    # covariance = covariance / float(len(f1))
+    covariance = 0
+    for i in range(len(f1)):
+        covariance += 32 - bin(f1[i] ^ f2[i]).count("1")
+    covariance = covariance / float(len(f1))
     
-    # return covariance/32
+    return covariance/32
     
     # l = len(f1)
     # s1 = np.std(f1)
@@ -113,5 +113,5 @@ def start1(rec1 , rec2) :
     crossarray = similarity(f1 , f2 , span , 10)
     return results(crossarray, span, 1)
 
-# start('temp1.wav','sfs1.wav')
-# start1('deepak1.wav' , 'sfs1.wav')
+start('Utkarsh5.wav','PasswordData/Utkarsh/Utkarsh3.wav')
+#start1('Utkarsh4.wav','PasswordData/Utkarsh/Utkarsh3.wav')

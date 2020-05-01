@@ -9,12 +9,19 @@ from scipy.io.wavfile import write
 from commands import getoutput as gt
 import recognition
 import preprocessing
+import time
 
 threshold =  0.6
 def record(Name, Range, Path,second) :
-	sr =44100
-	
-	for i in range(Range) : 
+    sr =44100
+    if Range == 10 :
+        record_voice=sounddevice.rec(int(second * sr),samplerate=sr,channels=2)
+        sounddevice.wait()
+        fname=Name
+        write(fname,sr,record_voice)
+        return
+    
+    for i in range(Range) : 
 		record_voice=sounddevice.rec(int(second * sr),samplerate=sr,channels=2)
 		sounddevice.wait()
 		fname=Name+str(i+1)+".wav"
@@ -28,16 +35,18 @@ if __name__ == "__main__":
     if(a == 1) :
         print "press 1 to give passcode"
         input()
-        record("temp" , 1 , "",8)
+        record("temp" , 1 , "",5)
         name = GMMTesting.testSingleaudio("temp1.wav")
         preprocessing.start("temp1.wav")
-
-
-
-        corr , offset  = recognition.start1('temp1.wav'  , "PasswordData/"+name+"/"+name+"1.wav")
+        
+        
+        
+        #corr , offset  = recognition.start1('temp1.wav'  , "PasswordData/"+name+"/"+name+"1.wav")
         #corr , offset  = recognition.start('temp1.wav'  , "PasswordData/"+name+"/"+name+"1.wav")
 
         corr , offset  = recognition.start('temp1.wav'  , "PasswordData/"+name+"/"+name+"1.wav")
+        corr , offset  = recognition.start('temp1.wav'  , "PasswordData/"+name+"/"+name+"2.wav")
+        corr , offset  = recognition.start('temp1.wav'  , "PasswordData/"+name+"/"+name+"3.wav")
         # if corr > threshold :
         #     print "Hello " + name
         # else :
@@ -78,8 +87,24 @@ if __name__ == "__main__":
         name = raw_input()
         passpath = "PasswordData/"+name
         print "give pass duration:"
-        record(name,1,passpath,int(input()))
+        dur = int(input())
+        
+        time.sleep(1)
+        print "Go"
+        record(name + '1.wav',10,passpath,dur)
         preprocessing.start(name+"1.wav")
-        gt("mv %s %s" %(name+"1.wav" , passpath))  
-
-
+        gt("mv %s %s" %(name+"1.wav" , passpath))
+        
+        print "Done"
+        time.sleep(1)
+        print "Go"
+        record(name + '2.wav',10,passpath,dur)
+        preprocessing.start(name+"2.wav")
+        gt("mv %s %s" %(name+"2.wav" , passpath))
+        
+        print "Done"
+        time.sleep(1)
+        print "Go"
+        record(name + '3.wav',10,passpath,dur)
+        preprocessing.start(name+"3.wav")
+        gt("mv %s %s" %(name+"3.wav" , passpath))
