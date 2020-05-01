@@ -8,7 +8,7 @@ commands.getoutput- to use terminal results
 from commands import getoutput as gt  
 numpy - for np arrays and their common functions  
 matplotlib.pyplot - audio waveforms  
-cPickle  
+cPickle - t0 save models  
 from scipy.io.wavfile import read as rd  
 from sklearn.mixture import GaussianMixture as GMM  
 from featureextraction import extract_features  
