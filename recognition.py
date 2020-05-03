@@ -113,5 +113,5 @@ def start1(rec1 , rec2) :
     crossarray = similarity(f1 , f2 , span , 10)
     return results(crossarray, span, 1)
 
-# start('Utkarsh5.wav','PasswordData/Utkarsh/Utkarsh3.wav')
+#start('temp2.wav' , 'PasswordData/rahul/rahul5.wav')
 #start1('Utkarsh4.wav','PasswordData/Utkarsh/Utkarsh3.wav')

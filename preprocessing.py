@@ -53,8 +53,7 @@ def start(audiopath) :
     plt.show()
     wvrd.write(audiopath, samplerate, audio)    
     
-
-#start('Utkarsh4.wav')
+# start('PasswordData/manav/manav1.wav')
     
 
 
