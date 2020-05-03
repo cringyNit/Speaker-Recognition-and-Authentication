@@ -35,7 +35,7 @@ if __name__ == "__main__":
     if(a == 1) :
         print "press 1 to give passcode"
         input()
-        #record("temp" , 1 , "",8)
+        #record("temp" , 1 , "",8)1
         name = GMMTesting.testSingleaudio("temp1.wav")
         preprocessing.start("temp1.wav")
         print name
