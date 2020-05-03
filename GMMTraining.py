@@ -34,3 +34,7 @@ def singleModelTraining(audiopath,modeldest) :
 	gmm = GMM(n_components = 16, max_iter = 200, covariance_type='diag',n_init = 3)
 	gmm.fit(mfcc_features)
 	Models.saveModels(modeldest , gmm , audiopath[12:])
+
+singleModelTraining('TrainingData/manav','GMMModels')
+
+singleModelTraining('TrainingData/rahul','GMMModels')     
